@@ -10,9 +10,9 @@ app.use(express.json());
 app.post("/events", async(req, res) => {
     try {
         console.log(req.body);
-        const {description} = req.body;
-        const newEvent = await pool.query("INSERT INTO events (description) VALUES($1) RETURNING *",
-             [description]);
+        const {id, name, location, private, start, end, signup, capacity, description, hostID} = req.body;
+        const newEvent = await pool.query("INSERT INTO events VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
+             [id, name, location, private, start, end, signup, capacity, description, hostID]);
 
         res.json(newEvent.rows[0]);     
 
